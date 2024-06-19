@@ -308,11 +308,12 @@ with col2:
                 resposta = ask_openai(mensagem, st.session_state.json)
                 resposta_json = json.loads(resposta)
                 resposta_final = json.dumps(resposta_json["content"], ensure_ascii=False).replace('"','')
+                print(resposta_final)
                 st.write(f'''
-                        <div class="flex"> 
-                            <img class ="imagem-2" src="https://i.ibb.co/MM8bLpY/sem-planilha.png" alt="sem-planilha" width="50" border="0" />
-                            <div class="resposta"> 
-                                <div>{resposta_final}</div>
+                            <div class="flex"> 
+                                <img class ="imagem-2" src="https://i.ibb.co/MM8bLpY/sem-planilha.png" alt="sem-planilha" width="50" border="0" />
+                                <div class="resposta"> 
+                                    <div>{resposta_final}</div>
+                                </div>
                             </div>
-                        </div>
                     ''', unsafe_allow_html=True)
