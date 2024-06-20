@@ -134,7 +134,7 @@ st.markdown('''<style>
                     background-color: #EE039C;
                 }
                 
-                .e1y5xkzn3{
+                .e1nzilvr5{
                     margin:10px;
                     background-color: #611C8F;
                     color: white;
