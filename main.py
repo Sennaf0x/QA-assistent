@@ -26,7 +26,9 @@ st.markdown('''<style>
                 }
                 
                 .flex{
-                    display:flex;
+                    display: grid;
+                    grid-gap: 5px;
+                    grid-template-columns: repeat(2, 1fr);
                 }
                 
                 .main-1{
@@ -88,22 +90,47 @@ st.markdown('''<style>
                     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
                 }
                 
-                .card{
+                .card-0{
                     margin: 10px;
+                    padding: 10px;
                     border: solid 1px;
                     background-color: aliceblue;
-                    width: 100%;
+                    width: 99%;
                     height: 100%;
-                    border-radius: 10px;
+                    text-align: justify;
                 }
-                .card-2{
+                .card-1{
                     margin: 10px auto;
+                    padding: 10px;
                     border: solid 1px;
                     background-color: aliceblue;
                     height: 100%;
                     width: 99%;
-                    border-radius: 10px;
+                    text-align: justify;
                 }
+                
+                .bg-0{
+                    margin: 10px 0;
+                    padding: 10px;
+                    color: white;
+                    border: solid 2px #611C8F;
+                    border-radius: 10px;
+                    background-color: #EE039C;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
+                    text-align: center;
+                }
+                .bg-1{
+                    margin: 10px 0;
+                    padding: 10px;
+                    color: white;
+                    border: solid 2px #EE039C;
+                    border-radius: 10px;
+                    background-color: #611C8F;
+                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
+                    text-align: center;
+                }
+                
+                
                 
                 .title{ 
                     font-size: 20px;
@@ -134,12 +161,13 @@ st.markdown('''<style>
                     background-color: #EE039C;
                 }
                 
-                .e1nzilvr5{
+                .st-emotion-cache-1jmvea6{
                     margin:10px;
-                    background-color: #611C8F;
+                    background-color: #EE039C;
                     color: white;
-                    box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 7px, #EE039C 0px 3px 6px;
-                    border: solid 1px #EE039C;
+                    border-radius: 50px;
+                    border: dashed 3px #611C8F;
+                    padding: 10px;
                 }
                 
                 .e1b2p2ww5{
@@ -284,8 +312,30 @@ with col1:
             submit_button = st.form_submit_button(label='Submeter')
 
         if submit_button:
+            
             df = pd.read_excel(dados)
-            st.dataframe(df)
+            st.write(f'''   <h1 class="header"/>Planilha de casos de testes</h1>
+                            <div class="flex">
+                                <div class="card-0 bg-0">Casos de teste</div>
+                                <div class="card-1 bg-0">Observações</div>
+                            </div>
+                        ''',unsafe_allow_html=True)
+            for index, row in df.iterrows():
+                if index%2 == 0:
+                    st.write(f'''
+                            <div class="flex">
+                                <div class="card-0 bg-1">{row[0]}</div>
+                                <div class="card-1 bg-1">{row[1]}</div>
+                            </div>
+                        ''',unsafe_allow_html=True)
+                else:
+                    st.write(f'''
+                            <div class="flex">
+                                <div class="card-0 bg-0">{row[0]}</div>
+                                <div class="card-1 bg-0">{row[1]}</div>
+                            </div>
+                        ''',unsafe_allow_html=True)
+            
             json_df = df.to_json(orient='records',force_ascii=False,lines=True)
             st.session_state.json = json_df
             
@@ -299,7 +349,7 @@ with col2:
                         </div>
                     ''', unsafe_allow_html=True)
         else:
-            st.write('''<h1 class="header mag">Planilha preenchida</h1>
+            st.write('''<h1 class="header mag">Converse com o assistente</h1>
                     ''', unsafe_allow_html=True)
             
             mensagem = st.text_input("Faça sua pergunta")
